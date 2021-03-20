@@ -34,7 +34,8 @@ const usuarioSchema = Schema({
 
 // sobreescribo el metodo por defecto y remuevo la pass y la version para q al mandar el print no aparezcan
 usuarioSchema.methods.toJSON = function() {
-    const { __v, password, ...usuario } = this.toObject();
+    const { __v, password, _id, ...usuario } = this.toObject();
+    usuario.uid = _id;
     return usuario;
 }
 
