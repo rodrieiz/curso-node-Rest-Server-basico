@@ -1,5 +1,4 @@
-const Role = require('../models/role');
-const Usuario = require('../models/usuario');
+const { Categoria, Usuario, Role, Producto } = require('../models');
 
 
 const esRolValido = async(rol = '') => {
@@ -25,8 +24,31 @@ const existeUsuarioId = async(id) => {
     }
 }
 
+/** 
+ * Validadores personalizados de categorias 
+ */
+const existeCategoriaPorId = async(id) => {
+    const existeCategoria = await Categoria.findById(id);
+    if (!existeCategoria) {
+        throw new Error(`El id ${id} no está registrado en la bd`);
+    }
+}
+
+
+/** 
+ * Validadores personalizados de productos 
+ */
+const existeProductoPorId = async(id) => {
+    const existeProducto = await Producto.findById(id);
+    if (!existeProducto) {
+        throw new Error(`El id ${id} no está registrado en la bd`);
+    }
+}
+
 module.exports = {
     esRolValido,
     emailExiste,
-    existeUsuarioId
+    existeUsuarioId,
+    existeCategoriaPorId,
+    existeProductoPorId
 }
